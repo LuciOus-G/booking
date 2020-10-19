@@ -17,8 +17,9 @@ class Post(models.Model):
     Price = models.CharField(max_length=100, default='')
     seat = models.CharField(max_length=20, default='')
     meeting = models.CharField(max_length=256, default='')
-    discount = models.BooleanField(default=False)
-    discount_price = models.CharField(max_length=100, default='', blank=True, null=True)
+    special = models.BooleanField(default=False)
+    special_desc = models.TextField(default='', blank=True, null=True)
+    special_desc = models.TextField(default='', blank=True, null=True, max_length=6201)
 
     # class Meta:
     #     verbose_name = u'Scheduling'

@@ -11,9 +11,10 @@
             .u-nav-link {
                 color : white;
             }
-            body{
-			    font-family: 'airbnb_cereal_appbook';
-			}
+
+            body {
+                font-family: system-ui;
+            }
         </style>
         <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
         <link rel="stylesheet" href="{% static 'css/font/fonts-cereal.css' %}">
@@ -31,7 +32,7 @@
                 <nav class="navbar navbar-light navbar-expand-md bg-white navigation-clean-search">
                     <div class="container-fluid"><button data-toggle="collapse" data-target="#navcol-1" class="navbar-toggler"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                         <div class="collapse navbar-collapse" id="navcol-1">
-                            <ul class="nav navbar-nav"></ul><img src="{% static 'image/logo.png' %}" style="width: 10%" />
+                            <ul class="nav navbar-nav"></ul><a class="login" href="{% url 'home' %}" style="color: #000000;"><img src="{% static 'image/logo.png' %}" style="width: 80%" /></a>
                             <form class="form-inline mr-auto" target="_self">
                                 <div class="form-group"><label for="search-field"></label></div>
                             </form>
@@ -44,7 +45,10 @@
                                         </ul>
                                     </div>
                                 </div>
-                            </nav><span class="navbar-text"><a class="login" href="#" style="color: #000000;">Log In</a></span><a class="btn btn-light action-button" role="button" href="#" style="color: #000000; margin: .5%;">Sign Up</a></div>
+                            </nav>
+                            <span class="navbar-text"><a class="login" href="{% url 'login' %}" style="color: #000000;">Log In</a></span>
+                            <a class="btn btn-light action-button" role="button" href="{% url 'register' %}" style="color: #000000; margin: .5%;">Sign Up</a>
+                        </div>
                     </div>
                 </nav>
             </div>
@@ -59,7 +63,7 @@
         <!-- end content -->
 
         <!-- footer -->
-        <div style="background-color: rgb(20,20,20); margin-top: 5%" class="footer-dark" style="background-color:transparent;margin-top:5%;">
+        <div style="background-color: rgb(20,20,20); margin-top: 5%; height:30rem;" class="footer-dark" style="background-color:transparent;margin-top:5%;">
             <footer>
                 <div class="container">
                     <div class="row">
