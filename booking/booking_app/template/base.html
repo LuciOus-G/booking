@@ -37,7 +37,7 @@
                                 <div class="form-group"><label for="search-field"></label></div>
                             </form>
                             <nav class="navbar navbar-light navbar-expand-md navigation-clean">
-                                <div class="container"><button data-toggle="collapse" data-target="#navcol-1" class="navbar-toggler"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                                <div class="container">
                                     <div class="collapse navbar-collapse" id="navcol-1">
                                         <ul class="nav navbar-nav ml-auto">
                                             <li class="nav-item" style="color: #000000;"><a class="nav-link" href="#" style="color: rgb(0,0,0);">Second Item</a></li>
@@ -46,8 +46,17 @@
                                     </div>
                                 </div>
                             </nav>
-                            <span class="navbar-text"><a class="login" href="{% url 'login' %}" style="color: #000000;">Log In</a></span>
-                            <a class="btn btn-light action-button" role="button" href="{% url 'register' %}" style="color: #000000; margin: .5%;">Sign Up</a>
+                            {% if user.is_authenticated %}
+                                <div class="dropdown">
+                                    <button class="btn btn-light action-button dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button">{{request.user}}</button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">My booking</a>
+                                        <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a></div>
+                                </div>
+                            {% else %}
+                                <span class="navbar-text"><a class="login" href="{% url 'login' %}" style="color: #000000;">Log In</a></span>
+                                <a class="btn btn-light action-button" role="button" href="{% url 'register' %}" style="color: #000000; margin: .5%;">Sign Up</a>
+                            {% endif %}
                         </div>
                     </div>
                 </nav>

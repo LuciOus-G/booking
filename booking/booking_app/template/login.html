@@ -12,16 +12,25 @@
 {% endblock css %}
 
 {% block content %}
-    <div class="register-photo container" style="margin-bottom: 10%;">
+    <div class="register-photo container" style="margin-bottom: 10%;margin-top:10%;">
         <div class="form-container">
             <center><form style="width:50%;"  method="POST">{% csrf_token %}
+                {% if fail == True %}
+                    <div class="alert alert-danger" role="alert">
+                        <p style="text-align: center; margin:0">Username or Password is incorrect!!</p>
+                        <p style="text-align: center; margin:0">Please try again or click forgot password</p>
+                    </div>
+                {% endif %}
                 {% for msg in messages %}
                 <p style="text-align:center;">Account created for <u>{{ msg }}</u> please login</p>
                 {% endfor %}
                 <h2 class="text-center"><strong>Log</strong> in</h2>
-                <div class="form-group"><input type="email" class="form-control" name="email" placeholder="Email" /></div>
-                <div class="form-group"><input type="password" class="form-control" name="password" placeholder="Password" /></div>
-                <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Sign In</button></div>
+                <div class="form-group"><input type="text" class="form-control" name="username" placeholder="Email" /></div>
+                <div style="margin-bottom:0;" class="form-group"><input type="password" class="form-control" name="password" placeholder="Password" /></div>
+                {% if fail == True %}
+                <a style="float:right" class="already" href="#"><p style="margin:0;text-align:right;">Forgot password?</p></a>
+                {% endif %}
+                <div style="margin-top:8%;" class="form-group"><button class="btn btn-primary btn-block" type="submit">Sign In</button></div>
                 <a class="already" href="{% url 'register' %}">Create an account here!</a>
             </form></center>
         </div>

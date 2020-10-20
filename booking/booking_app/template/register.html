@@ -8,9 +8,14 @@
             text-align: left;
         }
         .errorlist {
-            background: #ff3333;
-            border-radius: 5px;
-            color: white
+            position: relative;
+            padding: 0.75rem 1.25rem;
+            margin-bottom: 1rem;
+            border: 1px solid transparent;
+            border-radius: 0.25rem;
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
         }
     </style>
 
@@ -20,7 +25,7 @@
 {% if user.is_authenticated %}
 <h1>ahhahahaah</h1>
 {% endif %}
-    <div class="register-photo container">
+    <div class="register-photo container" style="margin-bottom: 10%;margin-top:10%;">
         <div class="form-container">
             <center><form style="width:50%" method="POST">{% csrf_token %}
                 <h2 class="text-center"><strong>Create</strong> an account.</h2>
@@ -34,7 +39,6 @@
                 <div class="form-group"><button class="btn btn-primary btn-block" type="submit" name="Create User">Sign Up</button></div>
                 <a  class="already" href="{% url 'login' %}">You already have an account? Login here.</a>
             </form></center>
-
         </div>
     </div>
 {% endblock content %}
