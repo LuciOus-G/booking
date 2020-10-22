@@ -3,6 +3,8 @@ from . import models
 
 
 # Register your models here.
+class bookingAdmin(admin.ModelAdmin):
+    list_display = ['day']
 
 class slugify(admin.ModelAdmin):
     readonly_fields = ['slug']
@@ -10,7 +12,6 @@ class slugify(admin.ModelAdmin):
 class PostImageAdmin(admin.StackedInline):
     model = models.PostImage
 
-@admin.register(models.Post)
 class PostAdmin(admin.ModelAdmin):
     inlines = [PostImageAdmin]
 
@@ -20,8 +21,10 @@ class PostAdmin(admin.ModelAdmin):
 @admin.register(models.PostImage)
 class PostImageAdmin(admin.ModelAdmin):
     pass
-admin.site.register(models.carousel)
 
+admin.site.register(models.carousel)
+admin.site.register(models.booking)
+admin.site.register(models.Post, slugify)
 """
     1. product
     2. gallery

@@ -1,7 +1,17 @@
 from django import forms
+from . import models
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.forms import ModelForm
 
+class createBooking(ModelForm):
+    class Meta:
+        model = models.booking
+        fields = [
+            'name',
+            'cus_id',
+
+        ]
 
 class createUser(UserCreationForm):
     class Meta:
