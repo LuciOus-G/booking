@@ -10,7 +10,15 @@ class createBooking(ModelForm):
         fields = [
             'name',
             'cus_id',
-
+            'born',
+            'day',
+            'gender',
+            'people',
+            'address',
+            'email',
+            'phone1',
+            'phone2',
+            'comment',
         ]
 
 class createUser(UserCreationForm):

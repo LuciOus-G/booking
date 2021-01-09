@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+{% endblock css %}
+
+{% block content %}
+        <form class="container" method="POST">{% csrf_token %}
+                {{ book}}
+                <div class="form-group"><button class="btn btn-primary btn-block" type="submit" name="Create User">Sign Up</button></div>
+        </form>
+{% endblock content %}
+
+{% block script %}
+{% endblock script %}

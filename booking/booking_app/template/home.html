@@ -2,147 +2,104 @@
 {% load static %}
 
 {% block css %}
-    <link rel="stylesheet" href="{% static 'css/flickity.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles_home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/flickity.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.css' %}">
 {% endblock css %}
 
 {% block content %}
-    <!-- playlist -->
-        <div>
-        <div class="carousel">
-            {% for crl in carousel %}
-              {% if not for.counter >= 4 %}
-                  <div class="carousel-cell">
-                    <img src="{{ crl.image.url }}" alt="orange tree" />
-                  </div>
-              {% endif %}
+    <div class="own-conrtainer" style="margin-bottom: 1%;">
+        <div class="main-carousel">
+            {% for slider in carousel %}
+                <div class="carousel-cell"><img class="img-fluid visible" style="width: 100%;height: 100%;" src="{{ slider.image.url }}"></div>
             {% endfor %}
         </div>
-
-        <div class="title-own">
-                <h1>welcome</h1>
-                <p>please read all our terms & conditions</p>
-                <p></p>
+        <div class="text-wrapper">
+            <h1 class="reveal" style="text-align: center;color: white;font-size: 4vw;">Heading</h1>
+            <h5 class="text-center text-light reveal" style="font-size: 2vw;">Heading</h5>
+            <h5 class="text-center text-light reveal" style="font-size: 2vw;">Heading</h5>
         </div>
-            </div>
-    <!-- end playlist -->
+    </div>
+    <div class="container-content">
+        <h1 class="sperate" style="margin-left: 2%;">Heading</h1>
+        <div id="content" class="owl-carousel owl-theme" style="margin-top: 1%;margin-bottom: 1%;height: auto;">
+            {% for ctn in trip %}
+            {% if not forloop.counter > 20 %}
+                <div class="item" style="height: 100%;margin-right: 1%;margin-left: 1%;">
+                <div class="card">
+                    <div class="card-body" style="padding: 0;padding-bottom: 1rem;">
+                        <div class="own-card">
 
-    <!--  content  -->
-        <!--    content trip    -->
-            <div style="margin: .5% 0 .5% 0" class="carousel-content" data-flickity='{ "groupCells": true }'>
-                {% for trip in trip %}
-                    {% if trip.special is False %}
-                        <div class="carousel-cell-card">
-                          <div class="card" style="width: 100%; height:100%;">
-
-                              <div class="carousel-images" data-flickity>
-                                  <div class="carousel-cell-images"><img style="height:100%;" src="{{ trip.photo1.url }}" class="card-img-top" alt="..."></div>
-                                  {% if trip.photo2 %}
-                                  <div class="carousel-cell-images"><img style="height:100%;" src="{{ trip.photo2.url }}" class="card-img-top" alt="..."></div>
-                                  {% endif %}
-                                  {% if trip.photo3 %}
-                                  <div class="carousel-cell-images"><img style="height:100%;" src="{{ trip.photo3.url }}" class="card-img-top" alt="..."></div>
-                                  {% endif %}
-
+                            <div class="carousel-own" data-flickity='{ "fade": true, "imagesLoaded": true}'>
+                                <div class="carousel-cell-own">
+                                    <img class="carousel-cell-image-own" src="{{ ctn.photo1.url }}" style="width: 100%;height:30%;border-radius: 5px;">
                                 </div>
-
-                              <div class="card-body" style="padding :0;">
-                                <h3 class="card-title">{{ trip.name }}</h3>
-                                <p class="text-secondary card-text" style="font-size: 12px; margin: 2%; margin-top:0;">{{ trip.day }}</p>
-                                <p class="card-text" style="margin: 0">Trip Price</p>
-                                <p class="text-secondary card-text2" style="font-size: 12px; margin: 2%; margin-top:0;">IDR {{ trip.Price }} (Min 6-10 People) </p>
-                                <p class="card-text" style="margin: 0;">Quota (Max/20)</p>
-                                <p class="text-secondary card-text" style="font-size: 12px; margin: 2%; margin-top:0;">Available: {{ trip.seat }} quota</p>
-                                <p class="card-text" style="margin: 0;">Meeting Point</p>
-                                <p class="text-secondary card-text" style="font-size: 12px; margin: 2%; margin-top:0;">{{ trip.meeting }}</p>
-                                <a href="#" class="btn btn-primary">Booking</a>
-                              </div>
-                            </div>
-                        </div>
-                    {% endif %}
-                {% endfor %}
-            </div>
-
-        <!--  content special trip  -->
-            <div style="margin: .5% 0 .5% 0" class="carousel-content" data-flickity='{ "groupCells": true }'>
-                <div class="carousel-cell-card">
-                    {% for trip in trip %}
-                        {% if  trip.special is True %}
-                            <div class="card" style="width: 100%; height:100%;">
-
-                          <div class="carousel-images" data-flickity>
-                              <div class="carousel-cell-images"><img style="height:100%;" src="{{ trip.photo1.url }}" class="card-img-top" alt="..."></div>
-                              {% if trip.photo2 %}
-                              <div class="carousel-cell-images"><img style="height:100%;" src="{{ trip.photo2.url }}" class="card-img-top" alt="..."></div>
-                              {% endif %}
-                              {% if trip.photo3 %}
-                              <div class="carousel-cell-images"><img style="height:100%;" src="{{ trip.photo3.url }}" class="card-img-top" alt="..."></div>
-                              {% endif %}
-
+                                {% if ctn.photo2 %}
+                                <div class="carousel-cell-own">
+                                    <img class="carousel-cell-image-own" src="{{ ctn.photo2.url }}" style="width: 100%;height:30%;border-radius: 5px;">
+                                </div>
+                                {% endif %}
+                                {% if ctn.photo3 %}
+                                <div class="carousel-cell-own">
+                                    <img class="carousel-cell-image-own" src="{{ ctn.photo3.url }}" style="width: 100%;height:30%;border-radius: 5px;">
+                                </div>
+                                {% endif %}
                             </div>
 
-                          <div class="card-body" style="padding :0;">
-                            <h3 class="card-title">{{ trip.name }}</h3>
-                            <p class="text-secondary card-text" style="font-size: 15px; margin: 2%; margin-top:0;">{{ trip.special_desc }}</p>
-                          </div>
+                            <h5 class="card-title" style="padding-right: 1.25rem;padding-left: 1.25rem; padding-top:5%">{{ ctn.name }}</h5>
+                            <h6 class="text-muted card-subtitle mb-2" style="padding-right: 1.25rem;padding-left: 1.25rem;margin-bottom:2%;">{{ ctn.day }}</h6>
+                            <h6 class="paraph card-subtitle mb-2" style="padding-right: 1.25rem;padding-left: 1.25rem;padding-top:2%">Price : IDR. {{ ctn.Price }}</h6>
+                            <h6 class="paraph card-subtitle mb-2" style="padding-right: 1.25rem;padding-left: 1.25rem;">Meet Point : {{ ctn.meeting }}</h6>
+                            <button id="button" class="btn btn-primary" type="button" style="margin-left: 1.25rem;margin-right: 1.25rem;">Book</button>
                         </div>
-                        {% endif %}
-                    {% endfor %}
-              </div>
+                    </div>
+                </div>
             </div>
-    <!--  end content  -->
+            {% endif %}
+            {% endfor %}
+        </div>
+        <h1 class="sperate" style="margin-left: 2%;">Heading2</h1>
+        <div id="special" class="owl-carousel owl-theme" style="margin-top: 1%;margin-bottom: 1%;height: auto;">
+            <div class="item" style="height: 100%;">
+                <div class="card">
+                    <div class="card-body" style="padding: 0;padding-bottom: 1rem;">
+                            <div class="carousel-own" data-flickity='{ "fade": true, "imagesLoaded": true}'>
+                                <div class="carousel-cell-own">
+                                    <img class="carousel-cell-image-own" src="{{ ctn.photo1.url }}" style="width: 100%;height:30%;border-radius: 5px;">
+                                </div>
+                                {% if ctn.photo2 %}
+                                <div class="carousel-cell-own">
+                                    <img class="carousel-cell-image-own" src="{{ ctn.photo2.url }}" style="width: 100%;height:30%;border-radius: 5px;">
+                                </div>
+                                {% endif %}
+                                {% if ctn.photo3 %}
+                                <div class="carousel-cell-own">
+                                    <img class="carousel-cell-image-own" src="{{ ctn.photo3.url }}" style="width: 100%;height:30%;border-radius: 5px;">
+                                </div>
+                                {% endif %}
+                            </div>
+                        <h5 class="card-title" style="padding-right: 1.25rem;padding-left: 1.25rem;">Title</h5>
+                        <h6 class="text-muted card-subtitle mb-2" style="padding-right: 1.25rem;padding-left: 1.25rem;">Subtitle</h6>
+                        <p class="card-text text1" style="padding-right: 1.25rem;padding-left: 1.25rem;">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p><button class="btn btn-primary" type="button" style="margin-left: 1.25rem;margin-right: 1.25rem;">Button</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock content %}
 
 {% block script %}
-    <script src="{% static 'js/flickity.min.js' %}"></script>
-    <script type="text/javascript">
-        var $carousel = $('.carousel').flickity({
-          imagesLoaded: true,
-          percentPosition: false,
-          pageDots: false,
-          prevNextButtons: false,
-          draggable: false,
-          autoPlay: true
+    <script src="{% static 'js/owl.carousel.js' %}"></script>
+    <script src="{% static 'js/flickity.pkgd.js' %}"></script>
+    <script src="{% static 'js/fontawesome.js' %}"></script>
+    <script src="{% static 'js/jquery.fittext.js' %}"></script>
+    <script src="{% static 'js/script_home.js' %}"></script>
+    <script src="{% static 'js/jquery3.min.js' %}"></script>
+    <script>
+        ScrollReveal().reveal('.reveal, #content, #special', {
+            delay:500,
+            reset:true,
+            distance:'100px',
         });
-
-        var $imgs = $carousel.find('.carousel-cell img');
-        // get transform property
-        var docStyle = document.documentElement.style;
-        var transformProp = typeof docStyle.transform == 'string' ?
-          'transform' : 'WebkitTransform';
-        // get Flickity instance
-        var flkty = $carousel.data('flickity');
-
-        $carousel.on( 'scroll.flickity', function() {
-          flkty.slides.forEach( function( slide, i ) {
-            var img = $imgs[i];
-            var x = ( slide.target + flkty.x ) * -1/3;
-            img.style[ transformProp ] = 'translateX(' + x  + 'px)';
-          });
-        });
-    </script>
-    <script type="text/javascript">
-        var $carousel = $('.carousel-content').flickity({
-          pageDots: false,
-          prevNextButtons: true,
-          draggable: false,
-          autoPlay: false,
-          groupCells: true,
-          adaptiveHeight: true
-        });
-
-    </script>
-    <script type="text/javascript">
-        var $carousel = $('.carousel-images').flickity({
-          imagesLoaded: true,
-          pageDots: false,
-          prevNextButtons: true,
-          draggable: false,
-          autoPlay: false,
-          groupCells: true,
-          adaptiveHeight: true,
-          fade: true,
-        });
-
     </script>
 {% endblock script %}

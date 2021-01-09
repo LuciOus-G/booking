@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from . import models
 from django.contrib.auth.models import User
-from .forms import createUser
+from .forms import createUser, createBooking
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.db.models import F
 # Create your views here.
 
 def home(request):
@@ -60,3 +61,25 @@ def logout_user(request):
     logout(request)
     return redirect(request.META.get('HTTP_REFERER'))
     print(request.META.get('HTTP_REFERER'))
+
+def user_booking(request):
+    book = createBooking()
+
+    if request.method == 'POST':
+        book = createBooking(request.POST)
+        if book.is_valid():
+            book.save()
+
+    content_list = {
+        'book':book
+    }
+
+    return render(request, 'booking.html', content_list)
+
+def test(request):
+    obj = models.Post.objects.get(name='Gunung Bromo')
+    count = obj.seat
+    obj.seat = int(count) - 1
+    obj.save()
+    print(type(count))
+    return redirect('home')

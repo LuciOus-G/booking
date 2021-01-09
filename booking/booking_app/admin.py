@@ -4,7 +4,7 @@ from . import models
 
 # Register your models here.
 class bookingAdmin(admin.ModelAdmin):
-    list_display = ['day']
+    readonly_fields = ['books_ids', 'name_trip', 'price', ]
 
 class slugify(admin.ModelAdmin):
     readonly_fields = ['slug']

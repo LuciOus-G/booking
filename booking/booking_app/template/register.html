@@ -27,7 +27,7 @@
 {% endif %}
     <div class="register-photo container" style="margin-bottom: 10%;margin-top:10%;">
         <div class="form-container">
-            <center><form style="width:50%" method="POST">{% csrf_token %}
+            <center><form class="reveal" style="width:50%" method="POST">{% csrf_token %}
                 <h2 class="text-center"><strong>Create</strong> an account.</h2>
                 {{ form.as_p }}
 <!--                <div class="form-group"><input type="text" class="form-control" name="first-name" placeholder="First Name" /></div>-->
@@ -42,3 +42,14 @@
         </div>
     </div>
 {% endblock content %}
+
+{% block script %}
+    <script>
+        ScrollReveal().reveal('.reveal, #content, #special', {
+            delay:300,
+            reset:true,
+            distance:'100px',
+        });
+    </script>
+
+{% endblock script %}
