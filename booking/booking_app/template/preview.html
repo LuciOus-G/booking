@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block css %}
+<style media="screen">
+  .gridd-parent{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+  }
+  </style>
+{% endblock css %}
+
+{% block content %}
+  <div class="container" style="margin-top:8%">
+    <center>
+      <h2>Amada Trip Receipt</h2>
+      <p>Please make a payment at least 7 day before departure day</p>
+      <p>Click <a href="#">here</a> to guide of payment</p>
+    </center>
+    <div class="gridd-parent" style="padding:1%;background-color:#f7f6e7;border: 1px solid;padding: 10px;box-shadow: 10px 10px;">
+      <div class="gridd-parent" style="grid-template-columns:1fr 3fr">
+        <div class="">
+          <p>Name</p>
+          <p>Place of Born </p>
+          <p>Date of Born</p>
+          <p>Gender</p>
+          <p>Address</p>
+          <p>Phone Number</p>
+          <p>E-Mail</p>
+          <p>Customer ID</p>
+        </div>
+        <div class="">
+          <p>: {{ data.user_name }}</p>
+          <p>: {{ data.place_born }}</p>
+          <p>: {{ data.day_born }}</p>
+          <p>: {{ data.gender }}</p>
+          <p>: {{ data.address }}</p>
+          <p>: {{ data.phone1 }}</p>
+          <p>: {{ data.email }}</p>
+          <p>: {{ data.customer_id }}</p>
+        </div>
+      </div>
+      <div class="gridd-parent" style="grid-template-columns:1fr 3fr">
+        <div class="">
+          <p>Booking ID</p>
+          <p>Trip</p>
+          <p>Price</p>
+          <p>Total Price</p>
+          <p>Departure Day</p>
+          <p>Meeting Point</p>
+          <p>People</p>
+          <p>Date of Booking</p>
+        </div>
+        <div class="">
+          <p>: {{ data.booking_id }}</p>
+          <p>: {{ data.name_trip }}</p>
+          <p>: Rp.{{ data.price|floatformat:2|intcomma }}</p>
+          <p>: Rp.{{ data.total_price|floatformat:2|intcomma }}</p>
+          <p>: {{ data.departure_day }}</p>
+          <p>: {{ data.meeting_point }}</p>
+          <p>: {{ data.people }}</p>
+          <p>: {{ data.date|date:'Y-m-d' }}</p>
+          <center>
+            <a class="btn btn-outline-success" href="{% url 'home' %}">Back to Home</a>
+            <a class="btn btn-outline-success" href="{% url 'booking_list' %}">Back To Booking List</a>
+          </center>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+
+{% block script %}
+{% endblock script %}

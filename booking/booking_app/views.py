@@ -1,17 +1,18 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from . import models
 from django.contrib.auth.models import User
-from .forms import createUser, createBooking
+from .forms import createUser, createBooking, testForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import F
+from django.contrib.auth.decorators import login_required
+from django.http import QueryDict
 # Create your views here.
 
 def home(request):
     carousel = models.carousel.objects.all().order_by('?')
     trip = models.Post.objects.all().order_by('-date')
-
-
+    cc = models.Post.objects.all()
     content_list = {
         'carousel': carousel,
         'trip': trip,
@@ -47,7 +48,8 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('home')
+            current_path = request.GET.get('next', None)
+            return redirect(current_path)
         else:
             fail = True
 
@@ -62,24 +64,58 @@ def logout_user(request):
     return redirect(request.META.get('HTTP_REFERER'))
     print(request.META.get('HTTP_REFERER'))
 
-def user_booking(request):
-    book = createBooking()
 
-    if request.method == 'POST':
-        book = createBooking(request.POST)
+def user_booking(request):
+    book = createBooking(data=request.GET)
+    if request.method == 'GET':
+        print(book.errors.as_data())
+        print(book.is_valid())
+        book = createBooking(data=request.GET)
         if book.is_valid():
             book.save()
+        data = request.GET.get('booking_id', None)
 
-    content_list = {
-        'book':book
+    return redirect('preview/?booking_id={0}'.format(data))
+
+def preview(request):
+    data = request.GET.get('booking_id', None)
+    data_db = models.booking.objects.get(booking_id=data)
+    contet = {
+        'data': data_db
+    }
+    return render(request, 'preview.html', contet)
+
+# @login_required(redirect_field_name='mountain')
+def mountain(request, slug):
+    mount = models.Post.objects.get(slug=slug)
+    return render(request, 'mountain.html', {'mount': mount})
+
+def book_field(request):
+    token = request.GET.get('id', None)
+    if token is None:
+        return redirect('/')
+    db = models.Post.objects.get(Token=token)
+    import string,random
+    booking_id = ''.join(str(random.choice(string.digits)) for x in range(13))
+    booking_id = 'AMD'+booking_id+random.choice(string.ascii_uppercase)
+    context = {
+        'db': db,
+        'booking_id': booking_id,
+        'tokrn': token
     }
 
-    return render(request, 'booking.html', content_list)
+    return render(request, 'booking.html', context)
 
-def test(request):
-    obj = models.Post.objects.get(name='Gunung Bromo')
-    count = obj.seat
-    obj.seat = int(count) - 1
-    obj.save()
-    print(type(count))
-    return redirect('home')
+def book_list(request):
+    print(request.user.id)
+    db = models.booking.objects.filter(customer_id=request.user.id).order_by('-date')
+    print(db)
+    context = {
+        'datauser': db
+    }
+    return render(request, 'booking_list.html', context)
+
+# Extra
+def termcondition(request):
+    image_db = models.PostImage.objects.all()
+    return render(request, 'termcondition.html', {'image': image_db})

@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 from booking_app import views
 
 urlpatterns = [
-    path('admin/login', admin.site.urls),
+    path('admin/', admin.site.urls),
     path('', include('booking_app.urls')),
 ]
 

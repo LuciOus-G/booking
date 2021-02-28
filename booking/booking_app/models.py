@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.text import slugify
 from datetime import date as dt
 from PIL import Image as Images
-
+import string,random
 # Create your models here.
 
 class Post(models.Model):
@@ -12,23 +12,24 @@ class Post(models.Model):
     date = models.DateField(auto_now_add=True)
     max_people = models.IntegerField(default=None)
     photo1 = models.ImageField(default=None, upload_to='thumbnail')
-    photo2 = models.ImageField(default=None, upload_to='thumbnail', blank=True, null=True )
-    photo3 = models.ImageField(default=None, upload_to='thumbnail', blank=True, null=True)
     # day1 = models.DateField(blank=True, default=dt(2020, 10, 18), null=True, help_text="Today Date.")
-    day = models.CharField(max_length=100, default=None)
-    Price = models.CharField(max_length=100, default=None)
+    departure_day = models.DateField(default=dt(2020, 10, 18))
+    Price = models.IntegerField(default=None)
     seat = models.CharField(max_length=20, default=None)
     meeting = models.CharField(max_length=256, default=None)
     special = models.BooleanField(default=False)
     special_desc = models.TextField(default=None, blank=True, null=True)
     special_desc = models.TextField(default=None, blank=True, null=True, max_length=620)
+    Token = models.CharField(max_length=255, unique=True, blank=True, editable=False, default='')
 
-    # class Meta:
-    #     verbose_name = u'Scheduling'
-    #     verbose_name_plural = u'Scheduling'
+    class Meta:
+        verbose_name = u'Trip'
+        verbose_name_plural = u'Trip'
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
+        if self.Token == '':
+            self.Token = self.randomGenerate()
         super(Post, self).save(*args, **kwargs)
 
         all_image = []
@@ -62,12 +63,19 @@ class Post(models.Model):
     def snippet(self):
         return self.desc[:self.snp]
 
+    def randomGenerate(self, size=25, chars=string.ascii_letters + string.digits):
+        slug = list(Post.objects.all())
+        generate = ''.join(random.choice(chars) for _ in range(size))
+        qs = Post.objects.filter(Token=generate).exists()
+        if qs:
+            randomGenerate(size=size + 1)
+        return generate
+
 class PostImage(models.Model):
-    post = models.ForeignKey(Post, default=None, on_delete=models.CASCADE)
-    images = models.FileField(upload_to='images/')
+    images = models.ImageField(upload_to='images/')
 
     def __str__(self):
-        return self.post.name
+        return str(self.id)
 
 class carousel(models.Model):
     image = models.ImageField(default=None, upload_to='carousel')
@@ -83,31 +91,33 @@ class carousel(models.Model):
 
 
 class booking(models.Model):
-    name = models.CharField(default=None, max_length=100)
-    cus_id  = models.IntegerField(default=None)
-    books_ids = models.CharField(default=None, max_length=50)
-    trip_sids = models.CharField(default=None, max_length=50)
-    seat_av = models.CharField(default=None, max_length=50)
     name_trip = models.CharField(default=None, max_length=100)
+    seat_available = models.CharField(default=None, max_length=50)
     price = models.CharField(default=None, max_length=20)
-    day_go = models.CharField(default=None, max_length=20)
-    meeting = models.CharField(max_length=256, default=None)
-    payment = models.CharField(max_length=256, default=None)
-    total_price = models.CharField(default=None, max_length=20)
-    born = models.CharField(default=None, max_length=20)
-    day = models.DateField(default=dt(2020, 10, 18))
+    place_born = models.CharField(default=None, max_length=20)
+    day_born = models.CharField(default=None, max_length=15)
     gender = models.CharField(default=None, max_length=10)
     address = models.CharField(default=None, max_length=255)
-    email = models.EmailField(default=None)
-    phone1 = models.IntegerField(default=None)
-    phone2 = models.IntegerField(default=None)
-    comment = models.TextField(default=None, max_length=255)
-    date = models.DateField(auto_now_add=True, blank=True, null=True)
+    phone1 = models.CharField(default=None,max_length=255)
     people = models.CharField(default=None, max_length=5)
+    # automatic
+    user_name = models.CharField(default=None, max_length=100)
+    customer_id  = models.CharField(default=None,max_length=255)
+    booking_id = models.CharField(default=None, max_length=50)
+    trip_id = models.CharField(default=None, max_length=50)
+    departure_day = models.CharField(default=None, max_length=20)
+    meeting_point = models.CharField(max_length=256, default=None)
+    total_price = models.CharField(default=None, max_length=20)
+    email = models.CharField(default=None,max_length=255)
+    date = models.DateField(auto_now_add=True, blank=True, null=True)
+    # day = models.DateField(default=dt(2020, 10, 18))
 
-    class Meta:
-        verbose_name = u'Booking'
-        verbose_name_plural = u'Booking'
+    # class Meta:
+    #     verbose_name = u'Booking'
+    #     verbose_name_plural = u'Booking'
 
     def __str__(self):
-        return '{} {}'.format(self.id, self.name)
+        return '{} {}'.format(self.id, self.user_name)
+
+class test(models.Model):
+    name = models.CharField(default=None, max_length=100)

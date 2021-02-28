@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
 
 {% block css %}
     <link rel="stylesheet" href="{% static 'css/styles_home.css' %}">
@@ -22,11 +23,32 @@
         </div>
     </div>
     <div class="container-content">
-        <h1 class="sperate" style="margin-left: 2%;">Heading</h1>
+        <h1 class="sperate" style="margin-left: 2%;">Trip</h1>
         <div id="content" class="owl-carousel owl-theme" style="margin-top: 1%;margin-bottom: 1%;height: auto;">
             {% for ctn in trip %}
             {% if not forloop.counter > 20 %}
                 <div class="item" style="height: 100%;margin-right: 1%;margin-left: 1%;">
+                <div class="card" style="padding:1%;background-color:#f7f6e7;border: 1px solid;padding: 10px;box-shadow: 10px 10px;">
+                    <div class="card-body" style="padding: 0;padding-bottom: 1rem;">
+                        <div class="own-card">
+                          <img class="carousel-cell-image-own" src="{{ ctn.photo1.url }}" style="width: 100%;height:30%;border-radius: 5px;">
+                            <h5 class="card-title" style="padding-right: 1.25rem;padding-left: 1.25rem; padding-top:5%">{{ ctn.name }}</h5>
+                            <h6 class="text-muted card-subtitle mb-2" style="padding-right: 1.25rem;padding-left: 1.25rem;margin-bottom:2%;">{{ ctn.day }}</h6>
+                            <h6 class="paraph card-subtitle mb-2" style="padding-right: 1.25rem;padding-left: 1.25rem;padding-top:2%">Price : IDR. {{ ctn.Price }}</h6>
+                            <h6 class="paraph card-subtitle mb-2" style="padding-right: 1.25rem;padding-left: 1.25rem;">Meet Point : {{ ctn.meeting }}</h6>
+                            <a href="{% url 'mountain' slug=ctn.slug %}" id="button" class="btn btn-primary" type="button" style="margin-left: 1.25rem;margin-right: 1.25rem;">Book</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <h1 class="sperate" style="margin-left: 2%;">Special Trip</h1>
+        <div id="special" class="owl-carousel owl-theme" style="margin-top: 1%;margin-bottom: 1%;height: auto;">
+          {% for ctn in trip %}
+            {% if ctn.special %}
+              <div class="item" style="height: 100%;margin-right: 1%;margin-left: 1%;">
                 <div class="card">
                     <div class="card-body" style="padding: 0;padding-bottom: 1rem;">
                         <div class="own-card">
@@ -49,41 +71,15 @@
 
                             <h5 class="card-title" style="padding-right: 1.25rem;padding-left: 1.25rem; padding-top:5%">{{ ctn.name }}</h5>
                             <h6 class="text-muted card-subtitle mb-2" style="padding-right: 1.25rem;padding-left: 1.25rem;margin-bottom:2%;">{{ ctn.day }}</h6>
-                            <h6 class="paraph card-subtitle mb-2" style="padding-right: 1.25rem;padding-left: 1.25rem;padding-top:2%">Price : IDR. {{ ctn.Price }}</h6>
+                            <h6 class="paraph card-subtitle mb-2" style="padding-right: 1.25rem;padding-left: 1.25rem;padding-top:2%">Price : Rp {{ ctn.Price|floatformat:2|intcomma }}</h6>
                             <h6 class="paraph card-subtitle mb-2" style="padding-right: 1.25rem;padding-left: 1.25rem;">Meet Point : {{ ctn.meeting }}</h6>
                             <button id="button" class="btn btn-primary" type="button" style="margin-left: 1.25rem;margin-right: 1.25rem;">Book</button>
                         </div>
                     </div>
                 </div>
-            </div>
+              </div>
             {% endif %}
-            {% endfor %}
-        </div>
-        <h1 class="sperate" style="margin-left: 2%;">Heading2</h1>
-        <div id="special" class="owl-carousel owl-theme" style="margin-top: 1%;margin-bottom: 1%;height: auto;">
-            <div class="item" style="height: 100%;">
-                <div class="card">
-                    <div class="card-body" style="padding: 0;padding-bottom: 1rem;">
-                            <div class="carousel-own" data-flickity='{ "fade": true, "imagesLoaded": true}'>
-                                <div class="carousel-cell-own">
-                                    <img class="carousel-cell-image-own" src="{{ ctn.photo1.url }}" style="width: 100%;height:30%;border-radius: 5px;">
-                                </div>
-                                {% if ctn.photo2 %}
-                                <div class="carousel-cell-own">
-                                    <img class="carousel-cell-image-own" src="{{ ctn.photo2.url }}" style="width: 100%;height:30%;border-radius: 5px;">
-                                </div>
-                                {% endif %}
-                                {% if ctn.photo3 %}
-                                <div class="carousel-cell-own">
-                                    <img class="carousel-cell-image-own" src="{{ ctn.photo3.url }}" style="width: 100%;height:30%;border-radius: 5px;">
-                                </div>
-                                {% endif %}
-                            </div>
-                        <h5 class="card-title" style="padding-right: 1.25rem;padding-left: 1.25rem;">Title</h5>
-                        <h6 class="text-muted card-subtitle mb-2" style="padding-right: 1.25rem;padding-left: 1.25rem;">Subtitle</h6>
-                        <p class="card-text text1" style="padding-right: 1.25rem;padding-left: 1.25rem;">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p><button class="btn btn-primary" type="button" style="margin-left: 1.25rem;margin-right: 1.25rem;">Button</button></div>
-                </div>
-            </div>
+          {% endfor %}
         </div>
     </div>
 {% endblock content %}

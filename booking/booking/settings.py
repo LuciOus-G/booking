@@ -26,7 +26,7 @@ SECRET_KEY = 'vhok$h@y90wi=y-p4w&nixfus^2@3hw7^t!(pd00**wo(58=ag'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '143.211.172.104'
+    '127.0.0.1'
 ]
 
 
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'booking_app',
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [
@@ -78,10 +79,20 @@ WSGI_APPLICATION = 'booking.wsgi.application'
 
 
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'booking_DB',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '3306',   #my port is 3306
     }
 }
 

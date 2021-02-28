@@ -8,17 +8,12 @@ class createBooking(ModelForm):
     class Meta:
         model = models.booking
         fields = [
-            'name',
-            'cus_id',
-            'born',
-            'day',
-            'gender',
-            'people',
-            'address',
-            'email',
-            'phone1',
-            'phone2',
-            'comment',
+            'name_trip',
+            'seat_available','price','place_born','day_born','gender','address',
+            'phone1','people',
+            'user_name'
+            ,'customer_id','booking_id','trip_id','departure_day','meeting_point',
+            'total_price','email'
         ]
 
 class createUser(UserCreationForm):
@@ -38,3 +33,8 @@ class createUser(UserCreationForm):
         if count > 0:
             raise forms.ValidationError('already')
         return email
+
+class testForm(ModelForm):
+    class Meta:
+        model = models.test
+        fields = ['name']

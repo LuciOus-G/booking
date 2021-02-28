@@ -25,8 +25,10 @@
                 <p style="text-align:center;">Account created for <u>{{ msg }}</u> please login</p>
                 {% endfor %}
                 <h2 class="text-center"><strong>Log</strong> in</h2>
-                <div class="form-group"><input type="text" class="form-control" name="username" placeholder="Username" /></div>
-                <div style="margin-bottom:0;" class="form-group"><input type="password" class="form-control" name="password" placeholder="Password" /></div>
+                <div class="form-group">
+                  <input type="text" class="form-control" name="username" placeholder="Username" /></div>
+                <div style="margin-bottom:0;" class="form-group">
+                  <input type="password" class="form-control" name="password" placeholder="Password" /></div>
                 {% if fail == True %}
                 <a style="float:right" class="already" href="#"><p style="margin:0;text-align:right;">Forgot password?</p></a>
                 {% endif %}

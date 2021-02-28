@@ -27,9 +27,9 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
     </head>
 
-    <body>
+    <body style="margin-bottom:5%;">
       <!-- header -->
-        <div class="sticky-top" style="margin-bottom: 5%">
+        <div style="margin-bottom: 7%">
             <div class="header-blue" style="height: 1rem;">
                 <nav class="navbar navbar-light navbar-expand-md bg-white navigation-clean-search">
                     <div class="container-fluid"><button data-toggle="collapse" data-target="#navcol-1" class="navbar-toggler"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
@@ -42,8 +42,8 @@
                                 <div class="container">
                                     <div class="collapse navbar-collapse" id="navcol-1">
                                         <ul class="nav navbar-nav ml-auto">
-                                            <li class="nav-item" style="color: #000000;"><a class="nav-link" href="#" style="color: rgb(0,0,0);">Second Item</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="#" style="color: #000000;">Third Item</a></li>
+                                            <li class="nav-item" style="color: #000000;"><a class="nav-link" href="{% url 'term' %}" style="color: rgb(0,0,0);">Term and Condition</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="#" style="color: #000000;">About</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -52,11 +52,14 @@
                                 <div class="dropdown">
                                     <button class="btn btn-light action-button dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button">{{request.user}}</button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">My booking</a>
+                                        <a class="dropdown-item" href="{% url 'booking_list' %}">My booking</a>
                                         <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a></div>
                                 </div>
                             {% else %}
-                                <span class="navbar-text"><a class="login" href="{% url 'login' %}" style="color: #000000;">Log In</a></span>
+                                <form class="" action="{% url 'login' %}" method="GET">
+                                  <input type="hidden" name="next" value="{{request.path}}">
+                                  <span class="navbar-text"><button type="submit" class="btn btn-light" style="color: #000000;border:0;">Log In</button></span>
+                                </form>
                                 <a class="btn btn-light action-button" role="button" href="{% url 'register' %}" style="color: #000000; margin: .5%;">Sign Up</a>
                             {% endif %}
                         </div>
